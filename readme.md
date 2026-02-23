@@ -4,6 +4,10 @@ A machine learning pipeline for predicting income using gradient boosting models
 
 ---
 
+![Income Prediction with XGBOOST, CATBOOST & SHAPE](images/income-prediction.png)
+
+---
+
 ## Table of Contents
 
 - [Project Overview](#project-overview)
