@@ -208,11 +208,11 @@ Best RMSE: 47748.47
 SHAP (SHapley Additive exPlanations) values are computed using `shap.TreeExplainer` on the best CatBoost model. The following visualizations are produced:
 
 - **Force plot** — explains an individual prediction by showing how each feature pushes the output above or below the base value.
-- **Beeswarm plot** — shows the distribution of SHAP values for all features across all samples, revealing both magnitude and direction of impact.
+- <a id="my-anchor">**Beeswarm plot**</a> — shows the distribution of SHAP values for all features across all samples, revealing both magnitude and direction of impact.
 - **Waterfall plot** — step-by-step breakdown of a single prediction.
-- **Bar plot** — global feature importance ranked by mean absolute SHAP value.
+- <a id="my-anchor-1">**Bar plot**</a> — global feature importance ranked by mean absolute SHAP value.
 
-The top 10 features are printed with their description from `features_description.csv` and a label indicating whether they **INCREASE** or **DECREASE** the predicted income.
+The top 10 features that strongly influnces the decision of the model are printed with their description from `features_description.csv` and a label indicating whether they **INCREASE** or **DECREASE** the predicted income.
 
 - "turn_cur_db_avg_act_v2": Average current debit turnover on current accounts for 12 months
 - incomeValue: Client's income value
@@ -227,17 +227,23 @@ The top 10 features are printed with their description from `features_descriptio
 
 Force plot
 ![SHAP Force Plot](images/Force-plot.png)
+This graph demonstrates, how each feature contributed to predicting an income of 71,730.55 for this customer.
+The base value is equivalent to - 92302.994
 
 Beeswarm plot
 ![SHAP Beeswarm Plot](images/Beeswarm.png)
+Reference - [Beeswarm explanation](#my-anchor)
 
 WaterFall plot
 ![SHAP WaterFall Plot for a random client A](images/waterfall-1.png)
 
 ![SHAP Beeswarm Plot for a random client B](images/waterfall-2.png)
+These graphs show similar interpretation as Force plot, showcasing the value each feature adds or subtracts from the base line value.
+For client A - Because the gender of a client is a woman, the model predicted less(NB: my model is not sexist, it just preidcts based on patterns found from the training data)
 
 Barplot
 ![SHAP Bar Plot](images/barplot.png)
+Reference - [Barplot explanation](#my-anchor-1)
 
 ---
 
@@ -307,7 +313,5 @@ The `model_features_cat.json` file contains the exact list of numerical feature 
 
 ## Known Issues & Limitations
 
-- There is a typo in the XGBoost model constructor: `olsample_bytree` should be `colsample_bytree`. This means the colsample parameter may not be applied correctly in XGBoost runs.
 - The SHAP section contains a reference to `train_X` and `train_y` variables from a `train_test_split` call that appears to be commented out or missing, which will cause a `NameError` if that cell is run in isolation.
-- The `catboost_hyperparameter_tuning` function is truncated in the notebook (`param_distributions=param_` is incomplete). The tuning results shown in comments are from a prior run.
-- The model is trained and evaluated on the training set only (80/20 split). Final predictions on `hackathon_income_test.csv` are not generated in the notebook.
+- The model is trained and evaluated on the training set only (80/20 split). Final predictions on `hackathon_income_test.csv` are not generated in the notebook, this is because that I dont have original test value. It was only available during the hackathon.
